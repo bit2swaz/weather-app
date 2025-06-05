@@ -23,13 +23,12 @@ function processWeatherData(data) {
 
 async function getWeatherData(location) {
     try {
-        const baseUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
-        const url = `${baseUrl}/${encodeURIComponent(location)}?unitGroup=metric&key=${WEATHER_API_KEY}&contentType=json`;
-
-        const response = await fetch(url);
+        // Use our Netlify function instead of calling the API directly
+        const response = await fetch(`/api/weather?location=${encodeURIComponent(location)}`);
         
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            const errorData = await response.json();
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
