@@ -1,43 +1,19 @@
 // Temporary solution until we move to Netlify
 const WEATHER_API_KEY = '5HPW9XQ9UVXXMRK776VDTNENN';
 
-function processWeatherData(data) {
-    const celsius = data.currentConditions.temp;
-    const fahrenheit = (celsius * 9/5) + 32;
-    
-    return {
-        temperature: {
-            celsius: celsius.toFixed(1),
-            fahrenheit: fahrenheit.toFixed(1)
-        },
-        conditions: data.currentConditions.conditions,
-        humidity: data.currentConditions.humidity,
-        windSpeed: data.currentConditions.windspeed,
-        iconUrl: data.currentConditions.icon 
-            ? `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Monochrome/${data.currentConditions.icon}.png`
-            : null,
-        location: data.resolvedAddress
-    };
-}
-
 async function getWeatherData(location) {
     try {
-        // Direct API call (temporary until we move to Netlify)
         const baseUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
         const url = `${baseUrl}/${encodeURIComponent(location)}?unitGroup=metric&key=${WEATHER_API_KEY}&contentType=json`;
         
         const response = await fetch(url);
-        
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`Weather data not found for "${location}"`);
         }
         
-        const data = await response.json();
-        const processedData = processWeatherData(data);
-        console.log('Processed Weather Data:', processedData);
-        return processedData;
+        return await response.json();
     } catch (error) {
-        console.error('Error fetching weather data:', error);
+        console.error('Error:', error);
         throw error;
     }
 }
@@ -45,18 +21,26 @@ async function getWeatherData(location) {
 function displayWeatherData(data) {
     const weatherContainer = document.getElementById('weather-container');
     
+    // Convert temperature
+    const celsius = data.currentConditions.temp;
+    const fahrenheit = (celsius * 9/5) + 32;
+
     const html = `
         <div class="weather-card">
-            ${data.iconUrl ? `<img src="${data.iconUrl}" alt="${data.conditions}" class="weather-icon">` : ''}
-            <h2>${data.location}</h2>
+            <img 
+                src="https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Monochrome/${data.currentConditions.icon}.png" 
+                alt="${data.currentConditions.conditions}"
+                class="weather-icon"
+            >
+            <h2>${data.resolvedAddress}</h2>
             <div class="weather-info">
                 <p class="temperature">
-                    ${data.temperature.celsius}°C / ${data.temperature.fahrenheit}°F
+                    ${celsius.toFixed(1)}°C / ${fahrenheit.toFixed(1)}°F
                 </p>
-                <p class="conditions">${data.conditions}</p>
+                <p class="conditions">${data.currentConditions.conditions}</p>
                 <div class="details">
-                    <p>Humidity: ${data.humidity}%</p>
-                    <p>Wind Speed: ${data.windSpeed} km/h</p>
+                    <p>Humidity: ${data.currentConditions.humidity}%</p>
+                    <p>Wind Speed: ${data.currentConditions.windspeed} km/h</p>
                 </div>
             </div>
         </div>
@@ -65,27 +49,32 @@ function displayWeatherData(data) {
     weatherContainer.innerHTML = html;
 }
 
-// Set up event listeners
+// Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     const weatherForm = document.getElementById('weather-form');
     const locationInput = document.getElementById('locationInput');
     const weatherContainer = document.getElementById('weather-container');
 
-    weatherForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Prevent form submission
-        const location = locationInput.value.trim();
+    // Handle form submission
+    weatherForm.addEventListener('submit', async (event) => {
+        // Prevent the default form submission
+        event.preventDefault();
         
+        const location = locationInput.value.trim();
         if (!location) {
             weatherContainer.innerHTML = '<p class="error">Please enter a location</p>';
             return;
         }
 
         try {
+            // Show loading state
             weatherContainer.innerHTML = '<p class="loading">Loading...</p>';
+            
+            // Get and display weather data
             const weatherData = await getWeatherData(location);
             displayWeatherData(weatherData);
         } catch (error) {
-            weatherContainer.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            weatherContainer.innerHTML = `<p class="error">${error.message}</p>`;
         }
     });
 });
