@@ -2,13 +2,19 @@
     --bg-primary: #1a1a1a;
     --bg-secondary: #242424;
     --bg-card: #2a2a2a;
-    --bg-footer: #222222;
+    --bg-footer: rgba(34, 34, 34, 0.95);
     --text-primary: #e1e1e1;
     --text-secondary: #a0a0a0;
     --accent-primary: #64b5f6;
     --accent-secondary: #4527a0;
     --border-color: rgba(255, 255, 255, 0.1);
     --shadow-color: rgba(0, 0, 0, 0.3);
+    --error-color: #ff6b6b;
+}
+
+/* Add smooth scrolling to the whole page */
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -65,6 +71,7 @@ input {
     background-color: rgba(255, 255, 255, 0.05);
     color: var(--text-primary);
     transition: all 0.3s ease;
+    letter-spacing: 0.3px;
 }
 
 input:focus {
@@ -72,10 +79,17 @@ input:focus {
     border-color: var(--accent-primary);
     box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.2);
     background-color: rgba(255, 255, 255, 0.08);
+    letter-spacing: 0.5px;
 }
 
 input::placeholder {
     color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+input:focus::placeholder {
+    opacity: 0.7;
+    transform: translateX(5px);
 }
 
 button {
@@ -117,6 +131,29 @@ button:active {
     background-color: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(5px);
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.weather-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--accent-primary),
+        transparent
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.weather-card:hover::before {
+    opacity: 1;
 }
 
 .weather-card:hover {
@@ -179,6 +216,7 @@ button:active {
     text-align: center;
     padding: 30px;
     color: var(--text-secondary);
+    position: relative;
 }
 
 .loading::after {
@@ -191,6 +229,7 @@ button:active {
     border: 3px solid var(--border-color);
     border-top-color: var(--accent-primary);
     animation: spin 1s linear infinite;
+    box-shadow: 0 0 10px rgba(100, 181, 246, 0.2);
 }
 
 @keyframes spin {
@@ -200,7 +239,7 @@ button:active {
 }
 
 .error {
-    color: #ff6b6b;
+    color: var(--error-color);
     text-align: center;
     padding: 20px;
     border: 1px solid rgba(255, 107, 107, 0.2);
@@ -208,6 +247,18 @@ button:active {
     background-color: rgba(255, 107, 107, 0.1);
     margin-top: 20px;
     backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Footer Styles */
@@ -315,4 +366,10 @@ button:active {
         padding: 15px;
         font-size: 14px;
     }
+}
+
+/* Add subtle text selection color */
+::selection {
+    background-color: rgba(100, 181, 246, 0.3);
+    color: var(--text-primary);
 }

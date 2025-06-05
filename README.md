@@ -15,7 +15,7 @@ A simple, elegant weather application built with vanilla JavaScript that display
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/weather-app.git
+git clone https://github.com/bit2swaz/weather-app.git
 cd weather-app
 ```
 

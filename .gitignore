@@ -1,14 +1,30 @@
 # Configuration files
 config.js
-
-# Environment files
 .env
 .env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
 
 # IDE files
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
 
 # OS files
 .DS_Store
-Thumbs.db 
+Thumbs.db
+*.log
+.cache/
+
+# Build files
+dist/
+build/
+*.min.js
+*.min.css 
