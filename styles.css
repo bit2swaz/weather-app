@@ -1,28 +1,47 @@
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #242424;
+    --bg-card: #2a2a2a;
+    --text-primary: #e1e1e1;
+    --text-secondary: #a0a0a0;
+    --accent-primary: #64b5f6;
+    --accent-secondary: #4527a0;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
 body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     margin: 0;
     padding: 20px;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
     min-height: 100vh;
     box-sizing: border-box;
+    color: var(--text-primary);
 }
 
 .container {
     max-width: 600px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--bg-card);
     padding: 30px;
-    border-radius: 16px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(5px);
+    border-radius: 24px;
+    box-shadow: 
+        0 4px 6px var(--shadow-color),
+        0 1px 3px var(--shadow-color),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
 }
 
 h1 {
     text-align: center;
-    color: #2c3e50;
+    color: var(--text-primary);
     margin-bottom: 30px;
     font-size: 2.5em;
     font-weight: 600;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .search-container {
@@ -33,38 +52,48 @@ h1 {
 
 input {
     flex: 1;
-    padding: 12px 16px;
-    border: 2px solid #e1e8ed;
-    border-radius: 8px;
+    padding: 16px 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
     font-size: 16px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    transition: all 0.3s ease;
 }
 
 input:focus {
     outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.2);
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+input::placeholder {
+    color: var(--text-secondary);
 }
 
 button {
-    padding: 12px 24px;
-    background-color: #007bff;
+    padding: 16px 28px;
+    background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 600;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #0056b3;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    filter: brightness(1.1);
 }
 
 button:active {
     transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #result {
@@ -75,64 +104,75 @@ button:active {
 }
 
 .weather-card {
-    padding: 25px;
-    border: 1px solid #e1e8ed;
-    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
     text-align: center;
-    background-color: white;
-    transition: transform 0.2s;
+    background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
 }
 
 .weather-card:hover {
     transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .weather-icon {
-    width: 120px;
-    height: 120px;
-    margin-bottom: 15px;
-    transition: transform 0.2s;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: all 0.3s ease;
 }
 
 .weather-icon:hover {
-    transform: scale(1.1);
+    transform: scale(1.05) rotate(5deg);
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
 }
 
 .weather-info {
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .temperature {
-    font-size: 48px;
+    font-size: 54px;
     font-weight: 700;
-    margin: 10px 0;
-    color: #2c3e50;
+    margin: 15px 0;
+    color: var(--text-primary);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, var(--accent-primary), var(--text-primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .conditions {
     font-size: 24px;
-    color: #5a6c7d;
-    margin-bottom: 20px;
+    color: var(--text-secondary);
+    margin-bottom: 25px;
+    font-weight: 500;
 }
 
 .details {
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #e1e8ed;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid var(--border-color);
 }
 
 .details p {
     margin: 5px 0;
-    color: #5a6c7d;
+    color: var(--text-secondary);
     font-size: 16px;
 }
 
 /* Loading Spinner */
 .loading {
     text-align: center;
-    padding: 20px;
+    padding: 30px;
+    color: var(--text-secondary);
 }
 
 .loading::after {
@@ -142,8 +182,8 @@ button:active {
     height: 40px;
     margin: 20px auto;
     border-radius: 50%;
-    border: 3px solid #e1e8ed;
-    border-top-color: #007bff;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--accent-primary);
     animation: spin 1s linear infinite;
 }
 
@@ -154,19 +194,21 @@ button:active {
 }
 
 .error {
-    color: #dc3545;
+    color: #ff6b6b;
     text-align: center;
-    padding: 15px;
-    border: 1px solid rgba(220, 53, 69, 0.3);
-    border-radius: 8px;
-    background-color: rgba(220, 53, 69, 0.1);
+    padding: 20px;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+    border-radius: 12px;
+    background-color: rgba(255, 107, 107, 0.1);
     margin-top: 20px;
+    backdrop-filter: blur(5px);
 }
 
 /* Responsive Design */
 @media (max-width: 480px) {
     .container {
         padding: 20px;
+        margin: 10px;
     }
 
     .search-container {
@@ -178,10 +220,15 @@ button:active {
     }
 
     .temperature {
-        font-size: 36px;
+        font-size: 42px;
     }
 
     .conditions {
         font-size: 20px;
+    }
+
+    .weather-icon {
+        width: 120px;
+        height: 120px;
     }
 }
