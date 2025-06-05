@@ -2,6 +2,7 @@
     --bg-primary: #1a1a1a;
     --bg-secondary: #242424;
     --bg-card: #2a2a2a;
+    --bg-footer: #222222;
     --text-primary: #e1e1e1;
     --text-secondary: #a0a0a0;
     --accent-primary: #64b5f6;
@@ -18,6 +19,10 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
     color: var(--text-primary);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 80px; /* Space for footer */
 }
 
 .container {
@@ -32,6 +37,7 @@ body {
         inset 0 1px 1px rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
+    margin-bottom: 60px;
 }
 
 h1 {
@@ -123,13 +129,13 @@ button:active {
     width: 140px;
     height: 140px;
     margin-bottom: 20px;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    filter: brightness(0) invert(1) opacity(0.9);
     transition: all 0.3s ease;
 }
 
 .weather-icon:hover {
     transform: scale(1.05) rotate(5deg);
-    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+    filter: brightness(0) invert(1) opacity(1);
 }
 
 .weather-info {
@@ -204,6 +210,74 @@ button:active {
     backdrop-filter: blur(5px);
 }
 
+/* Footer Styles */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background-color: var(--bg-footer);
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    font-size: 16px;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.heart {
+    color: #ff6b6b;
+    display: inline-block;
+    animation: pulse 1.5s ease infinite;
+}
+
+.github-link {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 700;
+    position: relative;
+    padding: 2px 4px;
+    transition: all 0.3s ease;
+}
+
+.github-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--accent-primary);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+}
+
+.github-link:hover {
+    color: var(--text-primary);
+}
+
+.github-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.github-link:active {
+    transform: translateY(1px);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 480px) {
     .container {
@@ -230,5 +304,15 @@ button:active {
     .weather-icon {
         width: 120px;
         height: 120px;
+    }
+
+    body {
+        padding: 10px;
+        padding-bottom: 100px;
+    }
+
+    .footer {
+        padding: 15px;
+        font-size: 14px;
     }
 }

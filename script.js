@@ -1,13 +1,19 @@
 import config from './config.js';
 
 function processWeatherData(data) {
+    const celsius = data.currentConditions.temp;
+    const fahrenheit = (celsius * 9/5) + 32;
+    
     return {
-        temperature: data.currentConditions.temp,
+        temperature: {
+            celsius: celsius.toFixed(1),
+            fahrenheit: fahrenheit.toFixed(1)
+        },
         conditions: data.currentConditions.conditions,
         humidity: data.currentConditions.humidity,
         windSpeed: data.currentConditions.windspeed,
         iconUrl: data.currentConditions.icon 
-            ? `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/${data.currentConditions.icon}.png`
+            ? `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Monochrome/${data.currentConditions.icon}.png`
             : null,
         location: data.resolvedAddress
     };
@@ -42,7 +48,9 @@ function displayWeatherData(data) {
             ${data.iconUrl ? `<img src="${data.iconUrl}" alt="${data.conditions}" class="weather-icon">` : ''}
             <h2>${data.location}</h2>
             <div class="weather-info">
-                <p class="temperature">${data.temperature}°C</p>
+                <p class="temperature">
+                    ${data.temperature.celsius}°C / ${data.temperature.fahrenheit}°F
+                </p>
                 <p class="conditions">${data.conditions}</p>
                 <div class="details">
                     <p>Humidity: ${data.humidity}%</p>
@@ -79,6 +87,3 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
-
-// Example usage:
-// getWeatherData('London,UK');
