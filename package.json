@@ -12,14 +12,19 @@
     "type": "git",
     "url": "git+https://github.com/bit2swaz/weather-app.git"
   },
-  "keywords": [],
+  "keywords": [
+    "weather",
+    "javascript",
+    "netlify",
+    "api"
+  ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bit2swaz/weather-app/issues"
   },
   "homepage": "https://github.com/bit2swaz/weather-app#readme",
   "devDependencies": {
-    "netlify-cli": "^x.x.x"
+    "netlify-cli": "^17.15.7"
   }
 }

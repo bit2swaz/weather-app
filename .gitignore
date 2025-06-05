@@ -1,5 +1,4 @@
 # Configuration files
-config.js
 .env
 .env.local
 .env.development.local
@@ -27,4 +26,12 @@ Thumbs.db
 dist/
 build/
 *.min.js
-*.min.css 
+*.min.css
+
+# Netlify
+.netlify/
+.netlify.toml
+.netlify.state.json
+
+# Local Netlify folder
+.netlify 
