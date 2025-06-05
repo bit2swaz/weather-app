@@ -5,19 +5,24 @@ A simple, elegant weather application built with vanilla JavaScript that display
 ## Features
 
 - Real-time weather data
-- Clean, modern UI
+- Clean, modern UI with dark theme
 - Responsive design
-- Loading indicators
-- Error handling
+- Loading indicators and error handling
 - Weather condition icons
 - Temperature in both Celsius and Fahrenheit
+- Recent searches history
 - Secure API handling through Netlify Functions
 
-## Live Demo
+## Security Features
 
-Visit the live demo at: https://bit2swaz.github.io/weather-app/
+- API key protected using environment variables
+- Rate limiting through caching
+- Input validation
+- Error handling
+- CORS protection
+- No exposed API keys in frontend code
 
-## Deployment
+## Deployment Options
 
 ### Option 1: Netlify (Recommended - Secure)
 
@@ -32,9 +37,16 @@ Visit the live demo at: https://bit2swaz.github.io/weather-app/
 
 Your site will be live at `https://your-site-name.netlify.app`
 
-### Option 2: GitHub Pages (Not recommended for production)
+### Option 2: GitHub Pages
 
-While GitHub Pages is simpler to set up, it's not recommended for production use as it doesn't support server-side environment variables or API proxying.
+While GitHub Pages is simpler, it requires the API key to be in the frontend code, which is not recommended for production use. If you still want to use GitHub Pages:
+
+1. Fork this repository
+2. Go to repository Settings > Pages
+3. Enable GitHub Pages from the main branch
+4. Your site will be live at `https://[username].github.io/weather-app`
+
+Note: Using GitHub Pages exposes your API key. Consider using Netlify for better security.
 
 ## Local Development
 
@@ -44,22 +56,20 @@ git clone https://github.com/bit2swaz/weather-app.git
 cd weather-app
 ```
 
-2. Install Netlify CLI:
-```bash
-npm install -g netlify-cli
-```
-
-3. Create a `.env` file in the root directory:
+2. Create a `.env` file:
 ```
 WEATHER_API_KEY=your_api_key_here
 ```
 
-4. Start the development server:
+3. Install dependencies:
 ```bash
-netlify dev
+npm install
 ```
 
-5. Open your browser and navigate to `http://localhost:8888`
+4. Start the development server:
+```bash
+npm run dev
+```
 
 ## API Key
 
@@ -68,18 +78,14 @@ This app uses the Visual Crossing Weather API. To get an API key:
 2. Copy your API key
 3. Add it to your environment variables
 
-## Security
-
-This application uses Netlify Functions to securely proxy API requests. Your API key is stored as an environment variable and never exposed to the client.
-
 ## Development
 
-The app is built with:
+Built with:
 - Vanilla JavaScript (ES6+)
 - HTML5
 - CSS3
 - Visual Crossing Weather API
-- Netlify Functions for API security
+- Netlify Functions (optional)
 
 ## License
 
