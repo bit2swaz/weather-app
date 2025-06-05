@@ -1,0 +1,25 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A simple, elegant weather application built with vanilla JavaScript that displays current weather conditions for any location using the Visual Crossing Weather API.",
+  "main": "script.js",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "netlify build",
+    "deploy": "netlify deploy --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bit2swaz/weather-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bit2swaz/weather-app/issues"
+  },
+  "homepage": "https://github.com/bit2swaz/weather-app#readme",
+  "devDependencies": {
+    "netlify-cli": "^x.x.x"
+  }
+}

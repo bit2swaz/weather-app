@@ -1,6 +1,5 @@
-// You can either set your API key here (not recommended for production)
-// or use environment variables in a proper backend setup
-const WEATHER_API_KEY = '5HPW9XQ9UVXXMRK776VDTNENN'; // Replace with your API key
+// Temporary solution until we move to Netlify
+const WEATHER_API_KEY = '5HPW9XQ9UVXXMRK776VDTNENN';
 
 function processWeatherData(data) {
     const celsius = data.currentConditions.temp;
@@ -23,12 +22,14 @@ function processWeatherData(data) {
 
 async function getWeatherData(location) {
     try {
-        // Use our Netlify function instead of calling the API directly
-        const response = await fetch(`/api/weather?location=${encodeURIComponent(location)}`);
+        // Direct API call (temporary until we move to Netlify)
+        const baseUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
+        const url = `${baseUrl}/${encodeURIComponent(location)}?unitGroup=metric&key=${WEATHER_API_KEY}&contentType=json`;
+        
+        const response = await fetch(url);
         
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         
         const data = await response.json();
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const weatherContainer = document.getElementById('weather-container');
 
     weatherForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent form submission
         const location = locationInput.value.trim();
         
         if (!location) {
