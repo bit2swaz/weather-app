@@ -1,4 +1,6 @@
-import config from './config.js';
+// You can either set your API key here (not recommended for production)
+// or use environment variables in a proper backend setup
+const WEATHER_API_KEY = '5HPW9XQ9UVXXMRK776VDTNENN'; // Replace with your API key
 
 function processWeatherData(data) {
     const celsius = data.currentConditions.temp;
@@ -22,7 +24,7 @@ function processWeatherData(data) {
 async function getWeatherData(location) {
     try {
         const baseUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
-        const url = `${baseUrl}/${encodeURIComponent(location)}?unitGroup=metric&key=${config.WEATHER_API_KEY}&contentType=json`;
+        const url = `${baseUrl}/${encodeURIComponent(location)}?unitGroup=metric&key=${WEATHER_API_KEY}&contentType=json`;
 
         const response = await fetch(url);
         

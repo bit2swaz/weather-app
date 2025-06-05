@@ -10,8 +10,13 @@ A simple, elegant weather application built with vanilla JavaScript that display
 - Loading indicators
 - Error handling
 - Weather condition icons
+- Temperature in both Celsius and Fahrenheit
 
-## Setup
+## Live Demo
+
+Visit the live demo at: https://bit2swaz.github.io/weather-app/
+
+## Setup for Local Development
 
 1. Clone the repository:
 ```bash
@@ -19,13 +24,9 @@ git clone https://github.com/bit2swaz/weather-app.git
 cd weather-app
 ```
 
-2. Create a `config.js` file in the root directory with your API key:
+2. Replace the API key in `script.js` with your own:
 ```javascript
-const config = {
-    WEATHER_API_KEY: 'your_api_key_here'
-};
-
-export default config;
+const WEATHER_API_KEY = 'your_api_key_here';
 ```
 
 3. Serve the application using a local server:
@@ -44,7 +45,20 @@ npx http-server
 This app uses the Visual Crossing Weather API. To get an API key:
 1. Sign up at [Visual Crossing Weather](https://www.visualcrossing.com/weather-api)
 2. Copy your API key
-3. Add it to your `config.js` file
+3. Replace the API key in `script.js`
+
+## Deployment
+
+To deploy to GitHub Pages:
+
+1. Go to your repository on GitHub
+2. Click on "Settings"
+3. Navigate to "Pages" in the sidebar
+4. Under "Source", select your main branch
+5. Click "Save"
+6. Your site will be published at `https://[your-username].github.io/weather-app/`
+
+Note: Make sure to use your own API key when deploying.
 
 ## Development
 
