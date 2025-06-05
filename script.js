@@ -1,5 +1,18 @@
 import config from './config.js';
 
+function processWeatherData(data) {
+    return {
+        temperature: data.currentConditions.temp,
+        conditions: data.currentConditions.conditions,
+        humidity: data.currentConditions.humidity,
+        windSpeed: data.currentConditions.windspeed,
+        iconUrl: data.currentConditions.icon 
+            ? `https://raw.githubusercontent.com/visualcrossing/WeatherIcons/main/PNG/2nd%20Set%20-%20Color/${data.currentConditions.icon}.png`
+            : null,
+        location: data.resolvedAddress
+    };
+}
+
 async function getWeatherData(location) {
     try {
         const baseUrl = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
@@ -12,13 +25,60 @@ async function getWeatherData(location) {
         }
         
         const data = await response.json();
-        console.log('Weather Data:', data);
-        return data;
+        const processedData = processWeatherData(data);
+        console.log('Processed Weather Data:', processedData);
+        return processedData;
     } catch (error) {
         console.error('Error fetching weather data:', error);
         throw error;
     }
 }
+
+function displayWeatherData(data) {
+    const weatherContainer = document.getElementById('weather-container');
+    
+    const html = `
+        <div class="weather-card">
+            ${data.iconUrl ? `<img src="${data.iconUrl}" alt="${data.conditions}" class="weather-icon">` : ''}
+            <h2>${data.location}</h2>
+            <div class="weather-info">
+                <p class="temperature">${data.temperature}°C</p>
+                <p class="conditions">${data.conditions}</p>
+                <div class="details">
+                    <p>Humidity: ${data.humidity}%</p>
+                    <p>Wind Speed: ${data.windSpeed} km/h</p>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    weatherContainer.innerHTML = html;
+}
+
+// Set up event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const weatherForm = document.getElementById('weather-form');
+    const locationInput = document.getElementById('locationInput');
+    const weatherContainer = document.getElementById('weather-container');
+
+    weatherForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const location = locationInput.value.trim();
+        
+        if (!location) {
+            weatherContainer.innerHTML = '<p class="error">Please enter a location</p>';
+            return;
+        }
+
+        try {
+            weatherContainer.innerHTML = '<p class="loading">Loading...</p>';
+            const weatherData = await getWeatherData(location);
+            displayWeatherData(weatherData);
+        } catch (error) {
+            weatherContainer.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+        }
+    });
+});
 
 // Example usage:
 // getWeatherData('London,UK');

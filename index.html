@@ -8,7 +8,19 @@
 </head>
 <body>
     <div class="container">
-        <!-- Content will go here -->
+        <h1>Weather App</h1>
+        <form id="weather-form" class="search-container">
+            <input 
+                type="text" 
+                id="locationInput" 
+                placeholder="Enter location (e.g., London,UK)" 
+                required
+            >
+            <button type="submit">Get Weather</button>
+        </form>
+        <div id="weather-container">
+            <!-- Weather data will appear here -->
+        </div>
     </div>
 
     <script src="script.js" type="module"></script>
