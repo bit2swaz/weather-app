@@ -1,6 +1,3 @@
-// Temporary solution until we move to Netlify
-const WEATHER_API_KEY = '5HPW9XQ9UVXXMRK776VDTNENN';
-
 async function getWeatherData(location) {
     try {
         const response = await fetch(`/.netlify/functions/weather?location=${encodeURIComponent(location)}`);
